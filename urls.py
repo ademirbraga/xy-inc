@@ -18,12 +18,14 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.conf.urls import url
 from django.contrib import admin
+#from mongoadmin import site
 
 admin.autodiscover()
 
 urlpatterns = [
     url('', include(admin.site.urls)),
     url(r'^admin/', include(admin.site.urls)),
+    #url(r'^admin/', include(site.urls)),
     url(r'^grappelli/', include('grappelli.urls')),  # grappelli URLS
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^admin_tools/', include('admin_tools.urls')),

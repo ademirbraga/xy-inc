@@ -26,3 +26,7 @@ django-guardian
 django-crispy-forms
 pymongo
 django-image-cropping
+mongoadmin
+mongodbforms
+django-mongo-sessions
+tox

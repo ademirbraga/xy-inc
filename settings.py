@@ -42,6 +42,7 @@ MANAGERS = ADMINS
 # Application definition
 
 INSTALLED_APPS = [
+    #'mongoadmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,6 +59,8 @@ INSTALLED_APPS = [
     'rest_framework_word_filter',
     'ckeditor',
     'ckeditor_uploader',
+    'gerador',
+   # 'mongoengine.django.mongo_auth',
 ]
 
 MIDDLEWARE = [
@@ -100,6 +103,13 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+#DATABASES = {
+#   'default' : {
+#      'ENGINE' : 'django_mongodb_engine',
+#      'NAME' : 'xyinc'
+#   }
+#}
 
 
 # Password validation
@@ -206,3 +216,25 @@ from easy_thumbnails.conf import Settings as thumbnail_settings
 THUMBNAIL_PROCESSORS = (
     'image_cropping.thumbnail_processors.crop_corners',
 ) + thumbnail_settings.THUMBNAIL_PROCESSORS
+
+
+#MONGOADMIN_OVERRIDE_ADMIN = True
+#
+#AUTHENTICATION_BACKENDS = (
+#    'mongoengine.django.auth.MongoEngineBackend',
+#)
+#MONGOENGINE_USER_DOCUMENT = 'mongoengine.django.auth.User'
+#AUTH_USER_MODEL = 'mongo_auth.MongoUser'
+
+
+AUTHENTICATION_BACKENDS = (
+    'mongoengine.django.auth.MongoEngineBackend',
+)
+
+#SESSION_ENGINE = 'mongoengine.django.sessions'
+SESSION_ENGINE = 'mongo_sessions.session'
+
+MONGO_DATABASE_NAME = 'xyinc3'
+
+from mongoengine import connect
+connect(MONGO_DATABASE_NAME)
