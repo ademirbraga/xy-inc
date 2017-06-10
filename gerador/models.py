@@ -24,12 +24,13 @@ class Modelo(Padrao):
 class ModeloInput(Padrao):
     class Meta:
         verbose_name        = u'Modelo Input'
-        verbose_name_plural = u'Modelos Inputs'
+        verbose_name_plural = u'Inputs do Modelo'
         db_table            = 'modelo_input'
 
+    modelo                  = ForeignKey(Modelo, verbose_name=u'Modelo', related_name='modelo_input')
     nome_input              = CharField(verbose_name=u'Input', max_length=150)
     tipo_input              = IntegerField(verbose_name=u'Tipo Input', choices=TIPOS_INPUTS, default=1)
-    modelo                  = ForeignKey(Modelo, verbose_name=u'Modelo', related_name='modelo_input')
+    referencia              = ForeignKey(Modelo, verbose_name=u'Referência', blank=True, null=True, related_name='modelo_input_referencia')
     required                = BooleanField(verbose_name=u'Obrigatório?', default=False)
     ativo                   = BooleanField(verbose_name=u'Ativo?', default=True)
 

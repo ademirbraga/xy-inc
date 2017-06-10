@@ -9,6 +9,7 @@ class ModeloInputAdminInline(TabularInline):
     model = ModeloInput
     extra = 0
     sortable_field_name = 'nome'
+    fk_name = 'modelo'
 
 
 class ModeloAdmin(ModelAdmin):

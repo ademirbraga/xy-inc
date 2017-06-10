@@ -229,4 +229,5 @@ TIPOS_INPUTS  = (
     (4, 'Date'),
     (5, 'Text'),
     (6, 'Bool'),
+    (7, 'List'),
 )
