@@ -30,3 +30,4 @@ mongoadmin
 mongodbforms
 django-mongo-sessions
 tox
+psycopg2

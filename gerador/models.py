@@ -1,34 +1,37 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
-from django.contrib.auth.models import User
-from django.db import models
-#from mongoengine import Document, EmbeddedDocument, fields
-#
-#
-#class Modelo(Document):
-#    nome         = fields.StringField(required=True)
-#    descricao    = fields.StringField(required=True, null=True)
-#    campos       = fields.ListField(fields.EmbeddedDocumentField(ModeloCampos))
-#
-#    def __unicode__(self):
-#        return u'%s' % self.nome
-#
-#
-#class ModeloCampos(EmbeddedDocument):
-#    nome  = fields.StringField(required=True)
-#    tipo  = fields.DynamicField(required=True)
-#
-#    def __unicode__(self):
-#        return u'%s' % self.nome
+from django.db.models import CharField, ManyToManyField, BooleanField, TextField, ForeignKey, IntegerField, FileField, DateField
+from util.models import Padrao
+from ckeditor.fields import RichTextField
+from settings import TIPOS_INPUTS
 
 
-#from mongoengine import *
-#from settings import MONGO_DATABASE_NAME
-#
-#connect(MONGO_DATABASE_NAME)
-#
-#class Post(Document):
-#    title = StringField(max_length=120, required=True)
-#    content = StringField(max_length=500, required=True)
-#    last_update = DateTimeField(required=True)
+
+class Modelo(Padrao):
+    class Meta:
+        verbose_name        = u'Modelo'
+        verbose_name_plural = u'Modelos'
+        db_table            = 'modelo'
+
+    nome                    = CharField(verbose_name=u'Modelo', max_length=150)
+    descricao               = RichTextField(verbose_name=u'Descrição', config_name='awesome_ckeditor')
+    ativo                   = BooleanField(verbose_name=u'Ativo?', default=True)
+
+    def __unicode__(self):
+        return u'%s'%self.nome
+
+
+class ModeloInput(Padrao):
+    class Meta:
+        verbose_name        = u'Modelo Input'
+        verbose_name_plural = u'Modelos Inputs'
+        db_table            = 'modelo_input'
+
+    nome_input              = CharField(verbose_name=u'Input', max_length=150)
+    tipo_input              = IntegerField(verbose_name=u'Tipo Input', choices=TIPOS_INPUTS, default=1)
+    modelo                  = ForeignKey(Modelo, verbose_name=u'Modelo', related_name='modelo_input')
+    required                = BooleanField(verbose_name=u'Obrigatório?', default=False)
+    ativo                   = BooleanField(verbose_name=u'Ativo?', default=True)
+
+    def __unicode__(self):
+        return u'%s'%self.nome_input

@@ -97,20 +97,24 @@ TEMPLATES = [
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 #DATABASES = {
-#   'default' : {
-#      'ENGINE' : 'django_mongodb_engine',
-#      'NAME' : 'xyinc'
-#   }
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
 #}
 
+DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': 'xyinc',                      # Or path to database file if using sqlite3.
+            # The following settings are not used with sqlite3:
+            'USER': 'postgres',
+            'PASSWORD': '197316',
+            'HOST': 'localhost',                      # Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
+            'PORT': '5432',                      # Set to empty string for default.
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -218,23 +222,11 @@ THUMBNAIL_PROCESSORS = (
 ) + thumbnail_settings.THUMBNAIL_PROCESSORS
 
 
-#MONGOADMIN_OVERRIDE_ADMIN = True
-#
-#AUTHENTICATION_BACKENDS = (
-#    'mongoengine.django.auth.MongoEngineBackend',
-#)
-#MONGOENGINE_USER_DOCUMENT = 'mongoengine.django.auth.User'
-#AUTH_USER_MODEL = 'mongo_auth.MongoUser'
-
-
-AUTHENTICATION_BACKENDS = (
-    'mongoengine.django.auth.MongoEngineBackend',
+TIPOS_INPUTS  = (
+    (1, 'Integer'),
+    (2, 'Decimal'),
+    (3, 'String'),
+    (4, 'Date'),
+    (5, 'Text'),
+    (6, 'Bool'),
 )
-
-#SESSION_ENGINE = 'mongoengine.django.sessions'
-SESSION_ENGINE = 'mongo_sessions.session'
-
-MONGO_DATABASE_NAME = 'xyinc3'
-
-from mongoengine import connect
-connect(MONGO_DATABASE_NAME)
