@@ -84,4 +84,11 @@ class Modelo_model extends MY_Model {
             default: return $type;
         }
     }
+
+    public function getModelos($idModelo = null, $unique = false) {
+        if ($unique) {
+            return $this->get_by(["id_modelo" => $idModelo]);
+        }
+        return $this->get_all();
+    }
 }

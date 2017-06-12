@@ -31,7 +31,7 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg"><?php echo (!empty($error)) ? $error : "Sign in to start your session";  ?></p>
         <form id="frm" name="frm" method="post" action="<?php echo site_url("login/logar"); ?>">
             <div class="form-group has-feedback">
                 <input type="text" name="username" id="username" value="" class="form-control" placeholder="Email">

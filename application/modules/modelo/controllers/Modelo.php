@@ -10,8 +10,28 @@ class Modelo extends MX_Controller {
     }
 
     public function index() {
+        $this->load->view('index.phtml');
+    }
 
+    public function registro() {
         $this->load->view('modelo.phtml');
+    }
+
+
+    public function getModelos() {
+        $post = $this->input->post(null);
+
+        $json_data = array(
+            "draw" => 0,
+            "recordsTotal" => 0,
+            "recordsFiltered" => 0,
+            "data" => []
+        );
+
+        $json_data['data'] = $this->modelo->getModelos();
+
+        echo json_encode($json_data);
+        exit();
     }
 
     public function salvar() {

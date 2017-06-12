@@ -4,6 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>XY-Inc</title>
+
+    <script type="text/javascript">
+        var base_url         = '<?php echo site_url(); ?>';
+        var URL_MODULE_BASE  = '<?php echo site_url().$this->router->fetch_module(); ?>';
+        var ACTION           = '<?php echo $this->router->fetch_method();?>';
+        var URL_MEDIA        = "<?php echo site_url("public/media"); ?>";
+    </script>
+
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -49,6 +57,8 @@
     <script src="<?php echo site_url('public/media'); ?>/dist/js/demo.js"></script>
 
     <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+
+    <script src="<?php echo site_url('public/resources'); ?>/utils/utils.js"></script>
 
 
 </head>
