@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'pgsql:host=localhost;dbname=xyinc2',
-	'username' => 'postgres',
+	'hostname' => 'pgsql:host=localhost;dbname=xyinc',
+	'username' => 'ademir',
 	'password' => '197316',
-	'database' => 'xyinc2',
+	'database' => 'xyinc',
 	'dbdriver' => 'pdo',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
