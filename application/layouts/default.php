@@ -228,7 +228,7 @@
             <!-- search form -->
             <form action="#" method="get" class="sidebar-form">
                 <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
+                    <input type="text" name="q" id="q-search" class="form-control" placeholder="Search...">
                     <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
@@ -358,7 +358,7 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
+                        <li><a href="invoice.html" id="a-invoice"><i class="fa fa-circle-o"></i> Invoice</a></li>
                         <li><a href="profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
                         <li><a href="login.html"><i class="fa fa-circle-o"></i> Login</a></li>
                         <li><a href="register.html"><i class="fa fa-circle-o"></i> Register</a></li>
