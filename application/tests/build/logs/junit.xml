@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Modelo_model_test" file="/home/ademir/www/xy-inc/application/tests/modules/modelo/models/Modelo_model_test.php" tests="7" assertions="23" failures="1" errors="0" time="2.222923">
-    <testcase name="test_createModelo" class="Modelo_model_test" file="/home/ademir/www/xy-inc/application/tests/modules/modelo/models/Modelo_model_test.php" line="17" assertions="21" time="0.594125"/>
-    <testcase name="test_createModeloFalhaDuplicarModelo" class="Modelo_model_test" file="/home/ademir/www/xy-inc/application/tests/modules/modelo/models/Modelo_model_test.php" line="64" assertions="0" time="0.415063">
-      <failure type="PHPUnit_Framework_AssertionFailedError">Modelo_model_test::test_createModeloFalhaDuplicarModelo
-No exception has been raised
+  <testsuite name="Entity_test" file="/home/ademir/www/xy-inc/application/tests/modules/entity/controllers/Entity_test.php" tests="1" assertions="1" failures="1" errors="0" time="0.162386">
+    <testcase name="test_index_get" class="Entity_test" file="/home/ademir/www/xy-inc/application/tests/modules/entity/controllers/Entity_test.php" line="25" assertions="1" time="0.162386">
+      <failure type="PHPUnit_Framework_ExpectationFailedException">Entity_test::test_index_get
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-'{"draw":0,"recordsTotal":0,"recordsFiltered":0,"data":[]}'
++''
 
-/home/ademir/www/xy-inc/application/tests/modules/modelo/models/Modelo_model_test.php:91
+/home/ademir/www/xy-inc/application/tests/modules/entity/controllers/Entity_test.php:31
 </failure>
+      <system-out>saida:esperado:{"draw":0,"recordsTotal":0,"recordsFiltered":0,"data":[]}</system-out>
     </testcase>
-    <testcase name="test_createModeloFalhaCriarModelo" class="Modelo_model_test" file="/home/ademir/www/xy-inc/application/tests/modules/modelo/models/Modelo_model_test.php" line="94" assertions="0" time="0.249050"/>
-    <testcase name="test_createModeloFalhaSalvarRegistroModelo" class="Modelo_model_test" file="/home/ademir/www/xy-inc/application/tests/modules/modelo/models/Modelo_model_test.php" line="124" assertions="0" time="0.263727"/>
-    <testcase name="test_createModeloFalhaSalvarRegistroModeloInputs" class="Modelo_model_test" file="/home/ademir/www/xy-inc/application/tests/modules/modelo/models/Modelo_model_test.php" line="135" assertions="0" time="0.259127"/>
-    <testcase name="test_dropModelo" class="Modelo_model_test" file="/home/ademir/www/xy-inc/application/tests/modules/modelo/models/Modelo_model_test.php" line="158" assertions="1" time="0.211924"/>
-    <testcase name="test_existeModelo" class="Modelo_model_test" file="/home/ademir/www/xy-inc/application/tests/modules/modelo/models/Modelo_model_test.php" line="163" assertions="1" time="0.229907"/>
   </testsuite>
 </testsuites>

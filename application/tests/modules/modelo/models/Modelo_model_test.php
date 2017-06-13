@@ -61,6 +61,36 @@ class Modelo_model_test extends TestCase {
         }
     }
 
+    public function test_createModeloFalhaCriarModeloComErros() {
+        try {
+            $expected = [
+                "nome_modelo"=> "teste_modelo",
+                "fields"=> [
+                    [
+                        "nome"=> "nome",
+                        "type"=> "TIPO_NAO_DEFINIDO",
+                        "tamanho"=> "100",
+                        "required"=> true,
+                        "unico"=> true
+                    ],
+                    [
+                        "nome"=> "telefone",
+                        "type"=> "string",
+                        "tamanho"=> "20",
+                        "required"=> false,
+                        "unico"=> false
+                    ]
+                ]
+            ];
+            $this->obj->createModelo($expected);
+        }
+        catch(Exception $e) {
+            return;
+        }
+
+        $this->fail('No exception has been raised');
+    }
+
     public function test_createModeloFalhaCriarModelo() {
         try {
             $expected = [

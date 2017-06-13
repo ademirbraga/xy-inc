@@ -10,28 +10,13 @@
 
 class ApiSeeder extends Seeder {
 
-	private $table = 'modelo';
-
 	public function run() {
-		$this->db->truncate($this->table);
-
 		$data = [
-			'id' => 1,
-			'name' => 'Book',
+		    'id_teste_modelo' => 1,
+			'nome' => "modelo_seed_api",
+            'valor' => 100.00
 		];
-		$this->db->insert($this->table, $data);
-		
-		$data = [
-			'id' => 2,
-			'name' => 'CD',
-		];
-		$this->db->insert($this->table, $data);
-		
-		$data = [
-			'id' => 3,
-			'name' => 'DVD',
-		];
-		$this->db->insert($this->table, $data);
+		$this->db->insert('teste_modelo', $data);
 	}
 
 }

@@ -8,11 +8,11 @@
  * @link       https://github.com/kenjis/ci-phpunit-test
  */
 
-class Entity_test extends TestCase {
+class Modelo_test extends TestCase {
 
     private $config;
 
-    public function xtest_index_get() {
+    public function test_index_get() {
         $this->config =& load_class('Config', 'core');
         $this->config->set_item('rest_auth', false);
         $this->config->set_item('auth_library_class', '');
@@ -22,12 +22,17 @@ class Entity_test extends TestCase {
         $this->assertResponseCode(REST_Controller::HTTP_OK);
     }
 
-    public function test_index_get() {
-        $output = $this->ajaxRequest('GET', 'entity');
-        $expected = '{"draw":0,"recordsTotal":0,"recordsFiltered":0,"data":[]}';
+    public function test_index() {
+        $output = $this->request('GET', 'modelo/index');
+        echo'AAAAAAAAAAAAAAAAAAAAAAA';
+        print_r($output);
+        $this->assertContains('<title>Page Title</title>', $output);
+    }
 
-        echo 'saida:';print_r($output);
-        echo 'esperado:';print_r($expected);
+
+    public function test_index_ajax_call() {
+        $output = $this->ajaxRequest('GET', 'modelo/getModelos');
+        $expected = '{"name":"John Smith","age":33}';
         $this->assertEquals($expected, $output);
     }
 
