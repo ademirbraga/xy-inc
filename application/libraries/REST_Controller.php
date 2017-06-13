@@ -1889,6 +1889,10 @@ abstract class REST_Controller extends CI_Controller {
             log_message('debug', 'Library Auth: Failure, empty auth_library_function');
             return FALSE;
         }
+        if ($auth_library_class == 'ion_auth') {
+            $this->load->add_package_path(APPPATH.'third_party/ion_auth/');
+            $this->load->library('ion_auth');
+        }
 
         if (is_callable([$auth_library_class, $auth_library_function]) === FALSE)
         {

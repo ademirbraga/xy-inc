@@ -27,6 +27,7 @@ class Api extends REST_Controller {
 
             $this->response([
                 'status' => 'success',
+                'message' => (count($dados)).' registro(s) encontrado(s)',
                 'dados'  => $dados
             ], REST_Controller::HTTP_OK);
         }
@@ -35,21 +36,17 @@ class Api extends REST_Controller {
     public function generic_post() {
         $modelo = $this->uri->segment(2);
         $post   = $this->post(null);
-
+        $post   = (array)json_decode($post[0]);
         try {
-            $id     = $this->api->salvarRegistro($modelo, $post);
+            $id = $this->api->salvarRegistro($modelo, $post);
 
-            if ($id) {
-                $post["id"] = $id;
-                $this->response([
-                    'status' => 'success',
-                    'dados' => $post,
-                    'message' => 'Registro salvo com sucesso.'
-                ], REST_Controller::HTTP_OK);
+            $dados = $this->api->getDados($modelo, $id);
 
-            } else {
-                $this->response($post, REST_Controller::HTTP_BAD_REQUEST);
-            }
+            $this->response([
+                'status' => 'success',
+                'dados' => $dados,
+                'message' => 'Registro salvo com sucesso.'
+            ], REST_Controller::HTTP_OK);
 
         } catch (Exception $exception) {
             $this->response([

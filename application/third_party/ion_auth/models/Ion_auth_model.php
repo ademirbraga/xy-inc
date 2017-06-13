@@ -2297,4 +2297,14 @@ class Ion_auth_model extends CI_Model
 		// just return the string IP address now for better compatibility
 		return $ip_address;
 	}
+
+    public function get_hashed_password($username) {
+        $user = $this->db->select('password')->where('email',$username)->get('users');
+        if ($user->num_rows() == 0) {
+            return false;
+        }
+        $user_details = $user->row();
+        $HA1 = $user_details->password;
+        return $HA1;
+    }
 }

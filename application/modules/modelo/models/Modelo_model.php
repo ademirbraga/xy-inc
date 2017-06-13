@@ -121,6 +121,8 @@ class Modelo_model extends MY_Model {
 
     private function getModeloInput($where) {
         $this->setTable("modelo_input");
+        $this->db->select("modelo_input.*");
+        $this->db->join("modelo", "modelo.id_modelo = modelo_input.id_modelo");
         return $this->get_many_by($where);
     }
 

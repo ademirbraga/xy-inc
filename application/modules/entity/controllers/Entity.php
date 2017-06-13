@@ -60,7 +60,6 @@ class Entity extends REST_Controller {
         }
     }
 
-
     private function validateEntity($entity) {
         $entity = json_decode($entity[0]);
 
