@@ -73,6 +73,12 @@ class Api extends REST_Controller {
                 throw new Exception("O modelo '$modelo' informado não existe.");
             }
 
+            $dados = $this->api->getDados($modelo, $id);
+
+            if (empty($dados)) {
+                throw new Exception("O registro '$id' informado não existe.");
+            }
+
             try {
 
                 $result = $this->api->deletarRegistro($modelo, $id);
@@ -80,7 +86,7 @@ class Api extends REST_Controller {
                 $this->response([
                     'status' => 'success',
                     'message' => ($result) ? "O registro '" . $id . "' foi apagado com sucesso." : 'O registro ' . $id. ' não pode ser apagado',
-                    'dados'  => []
+                    'dados'  => $dados
                 ], REST_Controller::HTTP_OK);
 
             } catch (Exception $exception) {
@@ -99,7 +105,8 @@ class Api extends REST_Controller {
     public function generic_put() {
         $modelo = $this->uri->segment(2);
         $id     = $this->uri->segment(3);
-        $post   = $this->post(null);
+        $put    = $this->put();
+        $put    = (array)json_decode($put[0]);
 
         try {
 
@@ -109,33 +116,38 @@ class Api extends REST_Controller {
                 throw new Exception("O identificador do modelo deve ser informado.");
             } elseif (!$this->modelo->existeModelo($modelo)) {
                 throw new Exception("O modelo '$modelo' informado não existe.");
-            } elseif (empty($post)) {
+            } elseif (empty($put)) {
                 throw new Exception("É necessário infomar os dados a serem atualizados.");
             }
 
-            $pk        = $this->api->getPostGresPK($modelo);
-            $post[$pk] = $id;
-            $id        = $this->api->salvarRegistro($modelo, $post);
+            $pk    = $this->api->getPostGresPK($modelo);
+            $dados = $this->api->getDados($modelo, $id);
 
-            if ($id) {
-                $post = $this->api->getDados($modelo, $id);
+            if (empty($dados)) {
+                throw new Exception("O registro '$id' informado não existe.");
+            }
+
+            $put[$pk]  = $id;
+
+            try {
+                $this->api->salvarRegistro($modelo, $put);
 
                 $this->response([
                     'status' => 'success',
-                    'dados' => $post,
+                    'dados' => $put,
                     'message' => 'Registro atualizado com sucesso.'
                 ], REST_Controller::HTTP_OK);
 
-            } else {
-                $this->response($post, REST_Controller::HTTP_BAD_REQUEST);
+            } catch (Exception $exception) {
+                throw $exception;
             }
 
         } catch (Exception $exception) {
             $this->response([
                 'status' => 'failed',
-                'dados' => $post,
-                'message' => "Não foi possível salvar o registro. " . $exception->getMessage()
-            ], REST_Controller::HTTP_BAD_REQUEST);
+                'dados' => $put,
+                'message' => "Não foi possível atualizar o registro. " . $exception->getMessage()
+            ], REST_Controller::HTTP_OK);
         }
 
     }
