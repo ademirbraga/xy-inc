@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="CodeIgniter Application Test Suite" tests="4" assertions="3" failures="1" errors="1" time="0.482040">
+    <testsuite name="Welcome_test" file="/home/ademir/www/xy-inc/application/tests/controllers/Welcome_test.php" tests="3" assertions="3" failures="1" errors="0" time="0.482040">
+      <testcase name="test_index" class="Welcome_test" file="/home/ademir/www/xy-inc/application/tests/controllers/Welcome_test.php" line="12" assertions="1" time="0.223787">
+        <failure type="PHPUnit_Framework_ExpectationFailedException">Welcome_test::test_index
+Failed asserting that '' contains "&lt;title&gt;Welcome to CodeIgniter&lt;/title&gt;".
+
+/home/ademir/www/xy-inc/application/tests/controllers/Welcome_test.php:14
+</failure>
+      </testcase>
+      <testcase name="test_method_404" class="Welcome_test" file="/home/ademir/www/xy-inc/application/tests/controllers/Welcome_test.php" line="17" assertions="1" time="0.218995"/>
+      <testcase name="test_APPPATH" class="Welcome_test" file="/home/ademir/www/xy-inc/application/tests/controllers/Welcome_test.php" line="22" assertions="1" time="0.039258"/>
+    </testsuite>
+    <testsuite name="Category_model_test" file="/home/ademir/www/xy-inc/application/tests/models/Category_model_test.php" tests="1" assertions="0" failures="0" errors="1" time="0.000000">
+      <testcase name="Category_model_test" time="0.000000">
+        <error type="CIPHPUnitTestShowErrorException">Category_model_test
+CIPHPUnitTestShowErrorException: Unable to load the requested class: Seeder
+
+/home/ademir/www/xy-inc/application/tests/_ci_phpunit_test/replacing/core/Common.php:174
+/home/ademir/www/xy-inc/application/tests/_ci_phpunit_test/replacing/core/Loader.php:1141
+/home/ademir/www/xy-inc/application/tests/_ci_phpunit_test/replacing/core/Loader.php:1136
+/home/ademir/www/xy-inc/application/third_party/MX/Loader.php:173
+/home/ademir/www/xy-inc/application/tests/models/Category_model_test.php:9
+</error>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testsuites>
