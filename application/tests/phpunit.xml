@@ -10,12 +10,10 @@
 	</testsuites>
 	<filter>
 		<whitelist>
-			<directory suffix=".php">../controllers</directory>
-			<directory suffix=".php">../models</directory>
-			<directory suffix=".php">../views</directory>
-			<directory suffix=".php">../libraries</directory>
-			<directory suffix=".php">../helpers</directory>
-			<directory suffix=".php">../hooks</directory>
+			<directory suffix=".php">../modules/entity/controllers</directory>
+
+			<directory suffix=".php">../modules/modelo/models</directory>
+			<directory suffix=".php">../modules/modelo/controllers</directory>
 		</whitelist>
 	</filter>
 	<logging>
