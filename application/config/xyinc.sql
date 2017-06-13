@@ -66,15 +66,15 @@ CREATE TABLE "login_attempts" (
 
 
 CREATE TABLE modelo(
-  id_modelo   INT PRIMARY KEY      NOT NULL,
+  id_modelo  SERIAL PRIMARY KEY,
   nome_modelo VARCHAR(150) NOT NULL,
-  descricao   TEXT NULL,
+  descricao   VARCHAR(150) NULL,
   ativo       BOOLEAN not null DEFAULT true
 );
 
 
 CREATE TABLE modelo_input(
-  id_modelo_input   INT PRIMARY KEY      NOT NULL,
+  id_modelo_input   SERIAL PRIMARY KEY      NOT NULL,
   id_modelo   INT NOT NULL,
   nome_input VARCHAR(150) NOT NULL,
   type VARCHAR(50) NOT NULL,
@@ -86,7 +86,6 @@ CREATE TABLE modelo_input(
   foreign key (id_modelo)
   REFERENCES modelo (id_modelo)
 );
-
 
 CREATE TABLE  ci_sessions (
 	session_id varchar(40) DEFAULT '0' NOT NULL,

@@ -3,21 +3,39 @@
 class Modelo_model extends MY_Model {
     public $_table = 'modelo';
     public $primary_key = 'id';
+    private $modelo;
 
 
     public function createModelo($dados) {
-        $modeloId = $this->saveOrUpdate($dados);
+        $dados = json_decode(json_encode($dados), true);
 
-        $this->load->dbforge();
-
-        $fields = $this->setInputs($dados["nome"], $dados["inputs"]);
-
-        $this->salvarInputs($modeloId, $dados["inputs"]);
+        $dados["ativo"] = true;
+        $this->db->trans_start();
 
         try {
-            $this->dbforge->create_table($dados["nome"], true);
+            $modeloId = $this->saveOrUpdate($dados);
+
+            $this->modelo = $dados["nome_modelo"];
+
+            $this->salvarInputs($modeloId, $dados["fields"]);
+
+            try {
+                $this->load->dbforge();
+
+                $this->setInputs($dados["nome_modelo"], $dados["fields"]);
+
+                $this->dbforge->create_table($dados["nome_modelo"], false);
+
+                $this->db->trans_commit();
+
+                return $modeloId;
+
+            } catch (Exception $exception) {
+                throw new CiError("Ocorreu um erro ao tentar criar o modelo '" . $this->modelo . "'" . $exception->getMessage());
+            }
 
         } catch (Exception $exception) {
+            $this->db->trans_rollback();
             throw $exception;
         }
     }
@@ -29,7 +47,7 @@ class Modelo_model extends MY_Model {
 
         try {
             foreach ($inputs as $input) {
-                $input["modelo_id"] = $modeloId;
+                $input["id_modelo"] = $modeloId;
                 $this->saveOrUpdate($input);
             }
 
@@ -37,7 +55,7 @@ class Modelo_model extends MY_Model {
 
         } catch (Exception $exception) {
             $this->db->trans_rollback();
-            throw $exception;
+            throw new Exception("Ocorreu um erro ao tentar salvar um dos campos do modelo '" . $this->modelo."'.");
         }
     }
 
@@ -47,7 +65,7 @@ class Modelo_model extends MY_Model {
         $pk = "id_" . strtolower($modelo);
 
         $fields[$pk] = [
-            "type" => "INT",
+            "type" => "SERIAL PRIMARY KEY",
             'auto_increment' => true,
             'unsigned' => true,
         ];
@@ -55,13 +73,13 @@ class Modelo_model extends MY_Model {
 
         foreach ($inputs as $input) {
             $infoInput = [
-                "type" => $this->getType($input["type"]),
-                'null' => $input["null"],
-                'unique' => isset($input['unique']) ? $input['unique'] : false,
-                'default' => $this->getDefaultValue($input["type"], $input["null"]),
+                "type" => $this->getType($input["type"], $input["tamanho"]),
+                //'null' => isset($input["null"]) ? $input["null"] : true,
+                'unique' => isset($input['unico']) ? $input['unico'] : false,
+                'default' => $this->getDefaultValue($input),
             ];
 
-            $fields[$input['nome_input']] = $infoInput;
+            $fields[$input['nome']] = $infoInput;
         }
 
         $this->dbforge->add_field($fields);
@@ -69,26 +87,45 @@ class Modelo_model extends MY_Model {
         return $fields;
     }
 
-    private function getDefaultValue($type, $nullable) {
+    private function getDefaultValue($input) {
 
-        if ($type == "DECIMAL") {
-            return $nullable ? null : 0.00;
+        if (!empty($input["type"]) && $input["type"] == "DECIMAL") {
+            return isset($input["null"]) ? null : 0.00;
         }
         return null;
 
     }
 
-    private function getType($type) {
-        switch ($type) {
+    private function getType($type, $size) {
+        switch (strtoupper($type)) {
             case "DECIMAL": return "DECIMAL(10, 2)";
+            case "STRING": return "VARCHAR($size)";
             default: return $type;
         }
     }
 
-    public function getModelos($idModelo = null, $unique = false) {
-        if ($unique) {
-            return $this->get_by(["id_modelo" => $idModelo]);
+    public function getModelos($where = [], $unique = false) {
+        $this->setTable("modelo");
+        $modelos = $this->get_many_by($where);
+        $inputs  = $this->getModeloInput($where);
+
+        foreach ($modelos as &$modelo) {
+            foreach ($inputs as $input) {
+                if ($input->id_modelo == $modelo->id_modelo) {
+                    $modelo->fields[] = $input;
+                }
+            }
         }
-        return $this->get_all();
+        return $modelos;
+    }
+
+    private function getModeloInput($where) {
+        $this->setTable("modelo_input");
+        return $this->get_many_by($where);
+    }
+
+    public function existeModelo($modelo) {
+        $this->setTable("modelo");
+        return !empty($this->get_by(["nome_modelo" => $modelo]));
     }
 }

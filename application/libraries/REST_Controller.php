@@ -2279,4 +2279,31 @@ abstract class REST_Controller extends CI_Controller {
             exit;
         }
     }
+
+    public function badRequestModelo(Exception $exception) {
+        $exemplo = ['entity'=> 'product',
+            'fields'=> [
+                [
+                    'nome'=>  'valor',
+                    'type'=>  'decimal',
+                    'size'=>  '10,2',
+                    'required'=>  true,
+                    'unique'=>  false
+                ],
+                [
+                    'nome'=>  'nome',
+                    'type'=>  'string',
+                    'size'=>  '100',
+                    'required'=>  true,
+                    'unique'=>  false
+                ]
+            ]
+        ];
+
+        $this->response([
+            'status' => 'failed',
+            "meesage" => $exception->getMessage(),// . "\nExemplo de uso:\n". json_encode($exemplo),
+            'dados' => []
+        ], REST_Controller::HTTP_BAD_REQUEST);
+    }
 }
