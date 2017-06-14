@@ -13,8 +13,10 @@ class Entity extends REST_Controller {
     public function index_get() {
         $modelo  = $this->uri->segment(2);
 
+        $where = !empty($modelo) ? ["nome_modelo" => $modelo] : [];
+
         try {
-            $modelos = $this->modelo->getModelos(["nome_modelo" => $modelo]);
+            $modelos = $this->modelo->getModelos($where);
 
             $this->response([
                 'status' => 'success',
@@ -28,19 +30,18 @@ class Entity extends REST_Controller {
     }
 
     public function index_post() {
-        $post = $this->post(null);
+        $post = $this->post();
 
         try {
 
-            $this->validateEntity($post);
+            $this->validateEntity($post[0]);
 
-            $post = json_decode($post[0]);
-            $modeloId = $this->modelo->createModelo($post);
+            $modeloId = $this->modelo->createModelo($post[0]);
 
             $this->response([
                 'status' => 'success',
                 "meesage" => "Modelo cadastrado com sucesso.",
-                'dados' => $this->modelo->getModelos(["id_modelo" => $modeloId])
+                'dados' => $this->modelo->getModelos(["modelo.id_modelo" => $modeloId])
             ], REST_Controller::HTTP_OK);
 
         } catch (Exception $exception) {
@@ -48,33 +49,19 @@ class Entity extends REST_Controller {
         }
     }
 
-    public function index_delete() {
-        $post = $this->post(null);
-
-        try {
-            $this->modelo->deleteModelo();
-
-
-        } catch (Exception $exception) {
-            $this->badRequestModelo($exception);
-        }
-    }
-
     private function validateEntity($entity) {
-        $entity = json_decode($entity[0]);
-
         if (empty($entity)) {
             throw new Exception("Malformed json string");
-        } elseif (empty($entity->nome_modelo)) {
+        } elseif (empty($entity['nome_modelo'])) {
             throw new Exception("O nome da entity não foi informada.");
-        } elseif (empty($entity->fields)) {
+        } elseif (empty($entity['fields'])) {
             throw new Exception("Os fields não foram informados.");
         }
 
-        $modelo = $this->modelo->get_by(["nome_modelo" => $entity->nome_modelo]);
+        $modelo = $this->modelo->get_by(["nome_modelo" => $entity['nome_modelo']]);
 
         if (!empty($modelo)) {
-            throw new Exception("O modelo '" . $entity->nome_modelo . "' já existe.");
+            throw new Exception("O modelo '" . $entity['nome_modelo'] . "' já existe.");
         }
     }
 }

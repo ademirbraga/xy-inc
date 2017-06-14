@@ -5,10 +5,7 @@ class Modelo_model extends MY_Model {
     public $primary_key = 'id';
     private $modelo;
 
-
     public function createModelo($dados) {
-        $dados = json_decode(json_encode($dados), true);
-
         $dados["ativo"] = true;
         $this->db->trans_start();
 
@@ -38,6 +35,11 @@ class Modelo_model extends MY_Model {
             $this->db->trans_rollback();
             throw $exception;
         }
+    }
+
+    public function dropModelo($modelo) {
+        $this->load->dbforge();
+        $this->dbforge->drop_table($modelo, true);
     }
 
     private function salvarInputs($modeloId, $inputs) {
@@ -76,7 +78,6 @@ class Modelo_model extends MY_Model {
                 "type" => $this->getType($input["type"], $input["tamanho"]),
                 //'null' => isset($input["null"]) ? $input["null"] : true,
                 'unique' => isset($input['unico']) ? $input['unico'] : false,
-                'default' => $this->getDefaultValue($input),
             ];
 
             $fields[$input['nome']] = $infoInput;
@@ -87,15 +88,6 @@ class Modelo_model extends MY_Model {
         return $fields;
     }
 
-    private function getDefaultValue($input) {
-
-        if (!empty($input["type"]) && $input["type"] == "DECIMAL") {
-            return isset($input["null"]) ? null : 0.00;
-        }
-        return null;
-
-    }
-
     private function getType($type, $size) {
         switch (strtoupper($type)) {
             case "DECIMAL": return "DECIMAL(10, 2)";
@@ -104,9 +96,10 @@ class Modelo_model extends MY_Model {
         }
     }
 
-    public function getModelos($where = [], $unique = false) {
+    public function getModelos($where = []) {
         $this->setTable("modelo");
         $modelos = $this->get_many_by($where);
+
         $inputs  = $this->getModeloInput($where);
 
         foreach ($modelos as &$modelo) {
@@ -129,5 +122,9 @@ class Modelo_model extends MY_Model {
     public function existeModelo($modelo) {
         $this->setTable("modelo");
         return !empty($this->get_by(["nome_modelo" => $modelo]));
+    }
+
+    public function existeTabela($tabela) {
+        return $this->db->table_exists($tabela);
     }
 }

@@ -22,67 +22,47 @@ $(document).ready(function() {
         } );
 
     } else {
-        CKEDITOR.replace('editor1');
+       // CKEDITOR.replace('editor1');
 
         editor = new $.fn.dataTable.Editor({
             ajax: "../php/staff.php",
             table: "#example",
             fields: [{
-                label: "First name:",
-                name: "first_name"
+                label: "Nome:",
+                name: "nome"
             }, {
-                label: "Last name:",
-                name: "last_name"
+                label: "Tipo:",
+                name: "type"
             }, {
-                label: "Position:",
-                name: "position"
+                label: "Obrigatório:",
+                name: "required"
             }, {
-                label: "Office:",
-                name: "office"
+                label: "Tamanho:",
+                name: "tamanho"
             }, {
-                label: "Extension:",
-                name: "extn"
+                label: "Unico:",
+                name: "unico"
             }, {
-                label: "Start date:",
-                name: "start_date",
-                type: "datetime"
-            }, {
-                label: "Salary:",
-                name: "salary"
+                label: "Ativo:",
+                name: "ativo"
             }
             ]
         });
-
-        // Activate an inline edit on click of a table cell
-        $('#example1').on('click', 'tbody td:not(:first-child)', function (e) {
-            editor.inline(this);
+        var table = $('#example1').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": Utils.URL_BASE+'/carregarInputs'
         });
 
-
-        $("#example1").DataTable({
-            order: [[1, 'asc']],
-            columns: [
-                {
-                    data: null,
-                    defaultContent: '',
-                    className: 'select-checkbox',
-                    orderable: false
-                },
-                {data: "nome"},
-                {data: "tipo"},
-                {data: "obrigatorio"},
-                {data: "unique"},
-                {data: "ativo"}
-            ],
-            select: {
-                style: 'os',
-                selector: 'td:first-child'
-            },
-            buttons: [
-                {extend: "create", editor: editor},
-                {extend: "edit", editor: editor},
-                {extend: "remove", editor: editor}
-            ]
+        $("#btn-input").click(function() {
+            table.row.add({
+                "nome": "Campo1",
+                "tipo": "string",
+                "obrigatorio": "false",
+                "unique": "false",
+                "ativo": "true"
+            }).draw();
         });
+
     }
 });

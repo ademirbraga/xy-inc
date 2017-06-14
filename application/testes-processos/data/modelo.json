@@ -1,0 +1,8 @@
+{
+  "nome_modelo": "modelo_teste_casper",
+  "descricao": "<h2>DESCRICAO DO MODELO</h2>",
+  "fields": [
+    {"nome": "campo1", "type": "string", "required": true, "tamanho": "100", "unico": false},
+    {"nome": "campo2", "type": "int", "required": true, "tamanho": "100", "unico": false}
+  ]
+}

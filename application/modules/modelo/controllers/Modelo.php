@@ -9,6 +9,17 @@ class Modelo extends MX_Controller {
 
     }
 
+    public function ajax() {
+        $json_data = array(
+            "draw" => 0,
+            "recordsTotal" => 0,
+            "recordsFiltered" => 0,
+            "data" => []
+        );
+
+        echo json_encode($json_data);
+    }
+
     public function index() {
         $this->load->view('index.phtml');
     }
@@ -34,29 +45,35 @@ class Modelo extends MX_Controller {
         exit();
     }
 
-    public function salvar() {
+    public function carregarInputs() {
         $post = $this->input->post(null);
 
-        $post = [
-            "nome" => "product",
-            "descricao" => "teste",
-            "ativo" => true,
-            "data_cadastro" => "2017-01-01",
-            "inputs" => [
-                ["nome_input" => "nome_produto", "type" => "VARCHAR", "tamanho" => 100, "required" => true, "null" => false],
-                ["nome_input" => "valor", "type" => "DECIMAL", "tamanho" => 0, "required" => true, "null" => false],
-                ["nome_input" => "codigo", "type" => "VARCHAR", "tamanho" => 10, "required" => true, "null" => false, "unique" => true],
-            ]
-        ];
+        $json_data = array(
+            "draw" => 1,
+            "recordsTotal" => 1,
+            "recordsFiltered" => 1,
+            "data" => []
+        );
+
+        $this->modelo->setTable('modelo_input');
+        $json_data['data'] = $this->modelo->get_by([]);
+
+        echo json_encode($json_data);
+        exit();
+    }
+
+    public function salvar() {
+        $post = $this->input->post(null);
 
         $this->db->trans_start();
 
         try {
+
+            if($this->db->table_exists($post["nome_modelo"])) {
+                throw new Exception("O modelo '{$post["nome_modelo"]}' já existe.");
+            }
             $this->modelo->createModelo($post);
-
             $this->db->trans_commit();
-
-            echo 'ok';
 
         } catch (Exception $exception) {
             if ($this->db->trans_status() === false) {
@@ -64,8 +81,7 @@ class Modelo extends MX_Controller {
                 throw $exception;
             }
         }
-
         echo json_encode($this->response);
-        exit();
+       // exit();
     }
 }

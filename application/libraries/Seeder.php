@@ -15,8 +15,7 @@ class Seeder
 	protected $dbforge;
 	protected $seedPath;
 
-	public function __construct()
-	{
+	public function __construct() {
 		$this->CI =& get_instance();
 		$this->CI->load->database();
 		$this->CI->load->dbforge();
@@ -29,11 +28,9 @@ class Seeder
 	 * 
 	 * @param string $seeder Seeder classname
 	 */
-	public function call($seeder)
-	{
-		if ($this->seedPath === null)
-		{
-			$this->seedPath = APPPATH . 'database/seeds/';
+	public function call($seeder) {
+		if ($this->seedPath === null) {
+			$this->seedPath = APPPATH . 'tests/seeds/';
 		}
 
 		$file = $this->seedPath . $seeder . '.php';
@@ -48,13 +45,11 @@ class Seeder
 	 * 
 	 * @param string $path
 	 */
-	public function setPath($path)
-	{
+	public function setPath($path) {
 		$this->seedPath = rtrim($path, '/').'/';
 	}
 
-	public function __get($property)
-	{
+	public function __get($property) {
 		return $this->CI->$property;
 	}
 }

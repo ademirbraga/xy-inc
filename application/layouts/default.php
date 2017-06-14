@@ -269,7 +269,7 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="<?php echo site_url('modelo'); ?>"><i class="fa fa-circle-o"></i> Modelos</a></li>
+                        <li><a id="" href="<?php echo site_url('modelo'); ?>"><i class="fa fa-circle-o"></i> Modelos</a></li>
                         <li><a href="../layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
                     </ul>
                 </li>

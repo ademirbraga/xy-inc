@@ -1647,11 +1647,11 @@ abstract class REST_Controller extends CI_Controller {
      * @param NULL $xss_clean Whether to apply XSS filtering
      * @return array|string|NULL Value from the POST request; otherwise, NULL
      */
-    public function post($key = NULL, $xss_clean = NULL)
-    {
-        if ($key === NULL)
-        {
-            return $this->_post_args;
+    public function post($key = NULL, $xss_clean = NULL) {
+        if ($key === NULL) {
+            $post = (array)array_map("json_decode", $this->_post_args);
+            return json_decode(json_encode($post), true);
+           // return $this->_post_args;
         }
 
         return isset($this->_post_args[$key]) ? $this->_xss_clean($this->_post_args[$key], $xss_clean) : NULL;
@@ -1666,11 +1666,10 @@ abstract class REST_Controller extends CI_Controller {
      * @param NULL $xss_clean Whether to apply XSS filtering
      * @return array|string|NULL Value from the PUT request; otherwise, NULL
      */
-    public function put($key = NULL, $xss_clean = NULL)
-    {
-        if ($key === NULL)
-        {
-            return $this->_put_args;
+    public function put($key = NULL, $xss_clean = NULL) {
+        if ($key === NULL) {
+            $post = (array)array_map("json_decode", $this->_put_args);
+            return json_decode(json_encode($post), true);
         }
 
         return isset($this->_put_args[$key]) ? $this->_xss_clean($this->_put_args[$key], $xss_clean) : NULL;
@@ -2285,29 +2284,29 @@ abstract class REST_Controller extends CI_Controller {
     }
 
     public function badRequestModelo(Exception $exception) {
-        $exemplo = ['entity'=> 'product',
-            'fields'=> [
-                [
-                    'nome'=>  'valor',
-                    'type'=>  'decimal',
-                    'size'=>  '10,2',
-                    'required'=>  true,
-                    'unique'=>  false
-                ],
-                [
-                    'nome'=>  'nome',
-                    'type'=>  'string',
-                    'size'=>  '100',
-                    'required'=>  true,
-                    'unique'=>  false
-                ]
-            ]
-        ];
+        $code = !empty($exception->getCode()) ? $exception->getCode() : REST_Controller::HTTP_BAD_REQUEST;
 
         $this->response([
             'status' => 'failed',
-            "meesage" => $exception->getMessage(),// . "\nExemplo de uso:\n". json_encode($exemplo),
+            "meesage" => $exception->getMessage(),
             'dados' => []
-        ], REST_Controller::HTTP_BAD_REQUEST);
+        ], $code);
+    }
+    
+    public function validateRequestModel($model) {
+        try {
+            if (empty($model)) {
+                throw new Exception("O modelo não foi informado.", REST_Controller::HTTP_BAD_REQUEST);
+            }
+
+            $this->load->model('modelo/Modelo_model', 'modelo');
+
+            if (!$this->modelo->existeModelo($model)) {
+                throw new Exception("O modelo '$model' informado não existe.", REST_Controller::HTTP_BAD_REQUEST);
+            }
+
+        } catch (Exception $exception) {
+            $this->badRequestModelo($exception);
+        }
     }
 }

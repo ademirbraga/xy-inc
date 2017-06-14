@@ -26,7 +26,7 @@ class Api_model extends MY_Model {
 
         } catch (CiError $exception) {
             $this->db->trans_rollback();
-            throw $exception;
+            throw new Exception("Não foi possivel salvar o modelo. " .$exception->getMessage(), REST_Controller::HTTP_OK);
         }
     }
 

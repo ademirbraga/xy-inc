@@ -1291,6 +1291,12 @@ class MY_Model extends CI_Model {
 	
 	public function log() {
 		$str = str_repeat("*", 150);
-		file_put_contents("/tmp/ccgc.log", $this->db->last_query().PHP_EOL.$str.PHP_EOL, FILE_APPEND);
+		//file_put_contents("/tmp/ccgc.log", $this->db->last_query().PHP_EOL.$str.PHP_EOL, FILE_APPEND);
 	}
+
+    function model_load_model($model_name, $alias) {
+        $CI =& get_instance();
+        $CI->load->model($model_name, $alias);
+        return $CI->$model_name;
+    }
 }
