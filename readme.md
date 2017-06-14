@@ -1,5 +1,5 @@
 ****************************
-XY-INC Backend as a Service
+**XY-INC Backend as a Service**
 ****************************
 
 Backend as a Service desenvolvido em PHP e PostgreSql
@@ -7,11 +7,11 @@ Backend as a Service desenvolvido em PHP e PostgreSql
 - PHP 5.6.x
 - PosgreSql 9.5.7
 - Apache 2.4.18
-- `Framework CodeIgniter-3.1 <https://codeigniter.com/>`_
+- [Framework CodeIgniter-3.1](https://codeigniter.com/)
 
 
 ****************************
-Api
+**Api**
 ****************************
 Por padrão temos duas rotas de recursos
 
@@ -21,7 +21,7 @@ Por padrão temos duas rotas de recursos
 Todas as rotas seguem o padrão REST, sendo GET para buscar dados, POST para criar, etc.
 
 ********************************************************
-Listando as entidades existentes
+**Listando as entidades existentes**
 ********************************************************
 
 ```GET /entity```
@@ -92,7 +92,7 @@ Listando as entidades existentes
 
 
 ****************************
-Criando uma nova entidade
+**Criando uma nova entidade**
 ****************************
 ```POST /entity```
 ```json
@@ -117,7 +117,7 @@ Criando uma nova entidade
 }
   ```
 ****************************
-Deletando uma entidade
+**Deletando uma entidade**
 ****************************
 
 ```DELETE /entity/123```
@@ -129,12 +129,12 @@ Utilizando um endpoint dinâmico
 Utilizaremos o exemplo criado acima, usuario.
 
 ********************************************************
-Listando todos os registros de um modelo
+**Listando todos os registros de um modelo**
 ********************************************************
 ```GET /api/product``` e será retornado um código http 200 (OK)
 
 ********************************************************
-Criando um novo produto
+**Criando um novo produto**
 ********************************************************
 
 ```POST /api/product``` e será retornado um código http 200 (Created)
@@ -147,12 +147,12 @@ Criando um novo produto
 Obs.: Caso os dados enviados não estejam de acordo com o schema informado, será retornado um código 422 e a mensagem de erro de validação.
 
 ****************************
-Buscando um produto pelo ID
+**Buscando um produto pelo ID**
 ****************************
 ```GET /api/product/124``` e será retornado um código http 200 (OK)
 
 ****************************
-Exempo de retorno:
+**Exempo de retorno:**
 ****************************
 ```json
 {
@@ -166,7 +166,7 @@ Exempo de retorno:
 }
 ```
 ****************************
-Atualizando um produto
+**Atualizando um produto**
 ****************************
 
 ```PUT api/usuario/123``` e será retornado um código http 200 (OK)
@@ -180,12 +180,12 @@ Atualizando um produto
 Obs.: O verbo PATCH não foi implementado sendo necessário sempre atualizar o objeto inteiro via PUT.
 
 ****************************
-Deletando um produto
+**Deletando um produto**
 ****************************
-```DELETE /api/usuario/123``` e será retornado um código http 200 (OK)
+```DELETE /api/product/123``` e será retornado um código http 200 (OK)
 
 ****************************
-Instalação
+**Instalação**
 ****************************
 
 Clone este projeto:
@@ -197,7 +197,7 @@ Clone este projeto:
 - Execute o arquivo ```/application/config/xyinc.sql``` que contém informações necessárias para a utilização de autenticações dos serviços REST.
 
 ****************************
-Executando
+**Executando**
 ****************************
 - Abra o browser no seguinte endereço http://xyinc.dev
 - **Usuário**: admin@admin.com
@@ -206,7 +206,7 @@ Executando
 Para utilizar os serviços disponibilizados, no **Postman** por exemplo, é preciso ativar **Authorization** com o **type** Basic com os dados de acesso informados acima.
 
 ****************************
-Testes Unitários
+**Testes Unitários**
 ****************************
 Para executar os testes unitários é necessário realizar a instalação do Framework de testes unitários PHPUnit.
 
@@ -225,21 +225,38 @@ Para executar os testes unitários...
 
 
 ****************************
-Testes de Processos
+**Testes de Processos**
 ****************************
 Para executar os testes de processos é necessário instalar o PhantomJS e ou CasperJs.
 
-- `PhantomJS <https://gist.github.com/julionc/7476620>`_
+- [PhantomJS](https://gist.github.com/julionc/7476620)
 
-- `CasperJS <http://docs.casperjs.org/en/latest/installation.html>`_
+- [CasperJS](http://docs.casperjs.org/en/latest/installation.html)
 
 Para executar os testes de processos..
 ***************************************************
-
 - $ cd application/testes-processos/cadastros
 - $ casperjs cadastro.js
 
 Apósa a execução dos testes de processos, algumas imagens (print's) das telas serão armazenados no diretório ```/application/testes-processos/cadastros``` visto que atualmente existe apenas uma automação desenvolvida
+
 **Observação**
 
 Os testes desenvolvidos com o CasperJS foram apenas iniciados, executando o login e alguma outra operação simples. No entanto é possível simular inúmeros comportamentos tanto de tela quanto de processos.
+
+***************************************************
+**Próximos passos**
+***************************************************
+
+- Aumentar a cobertura de testes de processos com CasperJs;
+- Aumentar a cobertura de testes unitários;  
+- Instalação de pacotes via composer para melhorar a extensibilidade;
+- Finalizar as telas de acesso aos modelos;
+- Criar uma imagem docker para melhorar e automatizar o processo de deploy e testes;
+
+***************************************************
+**Referências**
+***************************************************
+- [Escalabilidade com PostgreSql](https://www.infoq.com/br/presentations/escalabilidade-sharding-paralelismo-e-bigdata)
+
+- [Escalabilidade com PostgreSql](https://pgbr.postgresql.org.br/2011/slides/5.pdf)
