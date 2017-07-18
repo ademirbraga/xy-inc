@@ -78,8 +78,6 @@ Após a execução dos testes será gerado uma pasta coverage com o relatório c
 
 **Referências**
 
-[Construindo Apis Testáveis com nodejs](https://leanpub.com/construindo-apis-testaveis-com-nodejs/read "Construindo Apis Testáveis com nodejs")
-
 [Test a node restful api with mocha and chai](https://scotch.io/tutorials/test-a-node-restful-api-with-mocha-and-chai#toc-mocha-testing-environment)
 
 [Chai Assertion Library](http://chaijs.com/)
