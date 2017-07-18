@@ -23,6 +23,7 @@ Navegue até o diretório raiz /xy-inc e execute o seguinte comando para instala
 Para facilitar a instalação do MongoDB é recomendado que seja utilizado o docker. Caso tenha o docker já instalado, navegue até o diretório raiz da aplicação e execute o comando:
 
 docker-compose up
+
 Para mais detalhes de uma instalação completa do MongoDB clique [aqui](https://docs.mongodb.com/manual/administration/install-community/).
 
 
