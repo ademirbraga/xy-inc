@@ -1,0 +1,45 @@
+Arguments: 
+  /usr/bin/nodejs /usr/share/yarn/bin/yarn.js install
+
+PATH: 
+  /home/ademir/bin:/home/ademir/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+
+Yarn version: 
+  0.27.5
+
+Node version: 
+  6.11.0
+
+Platform: 
+  linux ia32
+
+npm manifest: 
+  {
+    "name": "xy-inc",
+    "version": "1.0.0",
+    "description": "Poi - zup",
+    "main": "server.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Ademir Braga",
+    "license": "ISC",
+    "devDependencies": {
+      "nodemon": "^1.11.0"
+    },
+    "dependencies": {
+      "body-parser": "^1.17.2",
+      "express": "^4.15.3",
+      "mongoose": "^4.11.1"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: EACCES: permission denied, unlink '/home/ademir/www/poi/node_modules/.bin/mkdirp'
+      at Error (native)
