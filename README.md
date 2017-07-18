@@ -4,9 +4,12 @@
 **xy-inc** é uma API Rest para manipulação de pontos de interesse (POIs) utilizando o framework Express (NodeJS) e MongoDB.
 
 **Requisitos**
-    [NodeJS](https://nodejs.org/en/download/ "NodeJS")
-    [MongoDB](https://www.mongodb.org/downloads "MongoDB")
-    [Yarn](https://yarnpkg.com/lang/en/docs/install/ "Yarn")
+
+[NodeJS](https://nodejs.org/en/download/ "NodeJS")
+    
+[MongoDB](https://www.mongodb.org/downloads "MongoDB")
+    
+[Yarn](https://yarnpkg.com/lang/en/docs/install/ "Yarn")
 
 **Instalação**
 
@@ -20,7 +23,7 @@ Navegue até o diretório raiz /xy-inc e execute o seguinte comando para instala
 Para facilitar a instalação do MongoDB é recomendado que seja utilizado o docker. Caso tenha o docker já instalado, navegue até o diretório raiz da aplicação e execute o comando:
 
 docker-compose up
-Caso queira fazer a instalação completa do MongoDB as informações podem ser encontradas aqui.
+Para mais detalhes de uma instalação completa do MongoDB clique [aqui](https://docs.mongodb.com/manual/administration/install-community/).
 
 
 **Iniciar**
