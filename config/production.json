@@ -1,0 +1,14 @@
+{
+  "Customer": {
+    "dbConfig": {
+      "host": "mongodb://localhost/xy-inc",
+      "port": "4000"
+    },
+    "credit": {
+      "initialDays": 30
+    },
+    "log": {
+      "level": "error"
+    }
+  }
+}

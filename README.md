@@ -91,3 +91,9 @@ Após a execução dos testes será gerado uma pasta coverage com o relatório c
 [Supertest - HTTP assertions](https://www.npmjs.com/package/supertest)
 
 [BabelJs](https://blog.tecsinapse.com.br/utilizando-es6-no-node-js-com-babel-js-430346d68794)
+
+[Helmet](https://helmetjs.github.io/ "Helmet")
+
+[Compression](https://www.npmjs.com/package/compression "Compression")
+
+[Best practice Security](http://expressjs.com/pt-br/advanced/best-practice-security.html "Best practice")

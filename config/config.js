@@ -1,6 +1,7 @@
-const config = {
-    host: process.env.MONGODB_URL || 'mongodb://localhost/xy-inc',
-    port: process.env.PORT || 3000
-};
+const mongoose = require('mongoose'),
+    config   = require('config');
+
+mongoose.Promise = global.Promise;
+mongoose.connect(config.get('Customer.dbConfig.host'));
 
 module.exports = config;
